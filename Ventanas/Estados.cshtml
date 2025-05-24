@@ -1,0 +1,67 @@
+﻿@page
+@using lib_dominio.Entidades
+@using lib_dominio.Nucleo
+@model asp_presentacion.Pages.Ventanas.EstadosModel
+@{
+    ViewData["Title"] = "Estados";
+}
+
+<h2>Estados</h2>
+
+<form method="post">
+    <div>
+        <label>Filtro Nombre Estado:</label>
+        <input asp-for="Filtro.Nombre" />
+        <button asp-page-handler="BtRefrescar" type="submit">Buscar</button>
+        <button asp-page-handler="BtNuevo" type="submit">Nuevo</button>
+    </div>
+
+    @if (Model.Accion == Enumerables.Ventanas.Listas)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lista ?? new List<Estados>())
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                        <td>
+                            <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
+                            <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Editar)
+    {
+        <div>
+            <label>Nombre:</label>
+            <input asp-for="Actual.Nombre" />
+        </div>
+        <div>
+            <label>Descripción:</label>
+            <input asp-for="Actual.Descripcion" />
+        </div>
+        <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
+        <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Borrar)
+    {
+        <div>
+            <p>¿Está seguro que desea borrar el estado: @Model.Actual?.Nombre ?</p>
+            <button asp-page-handler="BtBorrar" type="submit">Sí, borrar</button>
+            <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+        </div>
+    }
+</form>

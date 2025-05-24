@@ -1,0 +1,67 @@
+﻿@page
+@using lib_dominio.Entidades
+@using lib_dominio.Nucleo
+@model asp_presentacion.Pages.Ventanas.CategoriasModel
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<h2>Categorías</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <label>Nombre filtro:</label>
+        <input asp-for="Filtro.Nombre" />
+        <button asp-page-handler="BtRefrescar" type="submit">Buscar</button>
+        <button asp-page-handler="BtNuevo" type="submit">Nuevo</button>
+    </div>
+
+    @if (Model.Accion == Enumerables.Ventanas.Listas)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lista ?? new List<Categorias>())
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Fecha.ToShortDateString()</td>
+                        <td>
+                            <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
+                            <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Editar)
+    {
+        <div>
+            <label>Nombre:</label>
+            <input asp-for="Actual.Nombre" />
+        </div>
+        <div>
+            <label>Fecha:</label>
+            <input asp-for="Actual.Fecha" type="date" />
+        </div>
+        <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
+        <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Borrar)
+    {
+        <div>
+            <p>¿Está seguro que desea borrar la categoría: @Model.Actual?.Nombre ?</p>
+            <button asp-page-handler="BtBorrar" type="submit">Sí, borrar</button>
+            <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+        </div>
+    }
+</form>

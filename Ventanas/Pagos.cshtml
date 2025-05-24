@@ -1,0 +1,73 @@
+﻿@page
+@using lib_dominio.Entidades
+@using lib_dominio.Nucleo
+@model asp_presentacion.Pages.Ventanas.PagosModel
+@{
+    ViewData["Title"] = "Pagos";
+}
+
+<h2>Pagos</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <label>Descripción filtro:</label>
+        <input asp-for="Filtro.Referencia" />
+        <button asp-page-handler="BtRefrescar" type="submit">Buscar</button>
+        <button asp-page-handler="BtNuevo" type="submit">Nuevo</button>
+    </div>
+
+    @if (Model.Accion == Enumerables.Ventanas.Listas)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Monto</th>
+                    <th>Fecha Pago</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lista ?? new List<Pagos>())
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Referencia</td>
+                        <td>@item.Monto.ToString("C")</td>
+                        <td>@item.FechaPago.ToShortDateString()</td>
+                        <td>
+                            <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
+                            <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Editar)
+    {
+        <div>
+            <label>Descripción:</label>
+            <input asp-for="Actual.Referencia" />
+        </div>
+        <div>
+            <label>Monto:</label>
+            <input asp-for="Actual.Monto" type="number" step="0.01" />
+        </div>
+        <div>
+            <label>Fecha Pago:</label>
+            <input asp-for="Actual.FechaPago" type="date" />
+        </div>
+        <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
+        <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Borrar)
+    {
+        <div>
+            <p>¿Está seguro que desea borrar el pago: @Model.Actual?.Referencia ?</p>
+            <button asp-page-handler="BtBorrar" type="submit">Sí, borrar</button>
+            <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+        </div>
+    }
+</form>

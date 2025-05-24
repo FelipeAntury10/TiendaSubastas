@@ -1,0 +1,79 @@
+﻿@page
+@using lib_dominio.Entidades
+@using lib_dominio.Nucleo
+@model asp_presentacion.Pages.Ventanas.SubastasModel
+@{
+    ViewData["Title"] = "Subastas";
+}
+
+<h2>Subastas</h2>
+
+<form method="post">
+    <div>
+        <label>Filtro Nombre Subasta:</label>
+        <input asp-for="Filtro.Nombre" />
+        <button asp-page-handler="BtRefrescar" type="submit">Buscar</button>
+        <button asp-page-handler="BtNuevo" type="submit">Nuevo</button>
+    </div>
+
+    @if (Model.Accion == Enumerables.Ventanas.Listas)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>EstadoID</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lista ?? new List<Subastas>())
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.FechaInicio.ToShortDateString()</td>
+                        <td>@item.FechaFin.ToShortDateString()</td>
+                        <td>@item.EstadosID</td>
+                        <td>
+                            <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
+                            <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Editar)
+    {
+        <div>
+            <label>Nombre:</label>
+            <input asp-for="Actual.Nombre" />
+        </div>
+        <div>
+            <label>Fecha Inicio:</label>
+            <input asp-for="Actual.FechaInicio" type="date" />
+        </div>
+        <div>
+            <label>Fecha Fin:</label>
+            <input asp-for="Actual.FechaFin" type="date" />
+        </div>
+        <div>
+            <label>Estado ID:</label>
+            <input asp-for="Actual.EstadosID" type="number" />
+        </div>
+        <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
+        <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+    }
+    else if (Model.Accion == Enumerables.Ventanas.Borrar)
+    {
+        <div>
+            <p>¿Está seguro que desea borrar la subasta: @Model.Actual?.Nombre ?</p>
+            <button asp-page-handler="BtBorrar" type="submit">Sí, borrar</button>
+            <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
+        </div>
+    }
+</form>
