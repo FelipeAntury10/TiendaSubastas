@@ -3,10 +3,6 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -20,19 +16,12 @@ namespace asp_presentacion.Pages.Ventanas
             Filtro = new Pagos();
         }
 
-        [BindProperty]
-        public Enumerables.Ventanas Accion { get; set; }
+        [BindProperty] public Enumerables.Ventanas Accion { get; set; }
+        [BindProperty] public Pagos? Actual { get; set; }
+        [BindProperty] public Pagos? Filtro { get; set; }
+        [BindProperty] public List<Pagos>? Lista { get; set; }
 
-        [BindProperty]
-        public Pagos? Actual { get; set; }
-
-        [BindProperty]
-        public Pagos? Filtro { get; set; }
-
-        [BindProperty]
-        public List<Pagos>? Lista { get; set; }
-
-        public virtual void OnGet()
+        public void OnGet()
         {
             OnPostBtRefrescar();
         }
@@ -41,18 +30,17 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var variable_session = HttpContext.Session.GetString("Usuario");
-                if (string.IsNullOrEmpty(variable_session))
+                var session = HttpContext.Session.GetString("Usuario");
+                if (string.IsNullOrEmpty(session))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
                 }
 
-                Filtro!.Descripcion = Filtro?.Descripcion ?? "";
+                Filtro!.Referencia = Filtro?.Referencia ?? "";
 
                 Accion = Enumerables.Ventanas.Listas;
-
-                Task<List<Pagos>> task = iPresentacion.PorDescripcion(Filtro!);
+                var task = iPresentacion.PorReferencia(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -96,7 +84,7 @@ namespace asp_presentacion.Pages.Ventanas
             {
                 Accion = Enumerables.Ventanas.Editar;
 
-                Task<Pagos?>? task = Actual!.ID == 0
+                Task<Pagos?> task = Actual!.ID == 0
                     ? iPresentacion.Guardar(Actual!)
                     : iPresentacion.Modificar(Actual!);
 
@@ -130,6 +118,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 var task = iPresentacion.Borrar(Actual!);
+                task.Wait();
                 Actual = task.Result;
                 OnPostBtRefrescar();
             }

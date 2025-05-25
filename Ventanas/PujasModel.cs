@@ -3,10 +3,6 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -20,19 +16,12 @@ namespace asp_presentacion.Pages.Ventanas
             Filtro = new Pujas();
         }
 
-        [BindProperty]
-        public Enumerables.Ventanas Accion { get; set; }
+        [BindProperty] public Enumerables.Ventanas Accion { get; set; }
+        [BindProperty] public Pujas? Actual { get; set; }
+        [BindProperty] public Pujas? Filtro { get; set; }
+        [BindProperty] public List<Pujas>? Lista { get; set; }
 
-        [BindProperty]
-        public Pujas? Actual { get; set; }
-
-        [BindProperty]
-        public Pujas? Filtro { get; set; }
-
-        [BindProperty]
-        public List<Pujas>? Lista { get; set; }
-
-        public virtual void OnGet()
+        public void OnGet()
         {
             OnPostBtRefrescar();
         }
@@ -41,26 +30,15 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var variable_session = HttpContext.Session.GetString("Usuario");
-                if (string.IsNullOrEmpty(variable_session))
+                var session = HttpContext.Session.GetString("Usuario");
+                if (string.IsNullOrEmpty(session))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
                 }
 
-                // Aquí filtramos por ProductoId si se quiere, o sin filtro (a definir)
-                // Por ejemplo, si Filtro.ProductoId tiene valor, lo usamos para filtrar
-                int productoId = Filtro?.ProductoId ?? 0;
-
                 Accion = Enumerables.Ventanas.Listas;
-
-                Task<List<Pujas>> task;
-
-                if (productoId > 0)
-                    task = iPresentacion.PorProducto(productoId);
-                else
-                    task = Task.FromResult(new List<Pujas>()); // O implementar otro método para listar todas las pujas
-
+                var task = iPresentacion.PorReferencia(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -138,6 +116,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 var task = iPresentacion.Borrar(Actual!);
+                task.Wait();
                 Actual = task.Result;
                 OnPostBtRefrescar();
             }

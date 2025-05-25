@@ -3,10 +3,6 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -20,19 +16,13 @@ namespace asp_presentacion.Pages.Ventanas
             Filtro = new Vendedores();
         }
 
-        [BindProperty]
-        public Enumerables.Ventanas Accion { get; set; }
+        public IFormFile? FormFile { get; set; }
+        [BindProperty] public Enumerables.Ventanas Accion { get; set; }
+        [BindProperty] public Vendedores? Actual { get; set; }
+        [BindProperty] public Vendedores? Filtro { get; set; }
+        [BindProperty] public List<Vendedores>? Lista { get; set; }
 
-        [BindProperty]
-        public Vendedores? Actual { get; set; }
-
-        [BindProperty]
-        public Vendedores? Filtro { get; set; }
-
-        [BindProperty]
-        public List<Vendedores>? Lista { get; set; }
-
-        public virtual void OnGet()
+        public void OnGet()
         {
             OnPostBtRefrescar();
         }
@@ -41,8 +31,8 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var variable_session = HttpContext.Session.GetString("Usuario");
-                if (string.IsNullOrEmpty(variable_session))
+                var sessionUser = HttpContext.Session.GetString("Usuario");
+                if (string.IsNullOrEmpty(sessionUser))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
@@ -51,8 +41,7 @@ namespace asp_presentacion.Pages.Ventanas
                 Filtro!.Nombre = Filtro?.Nombre ?? "";
 
                 Accion = Enumerables.Ventanas.Listas;
-
-                Task<List<Vendedores>> task = iPresentacion.BuscarPorNombre(Filtro!);
+                var task = iPresentacion.BuscarPorNombre(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -68,7 +57,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Actual = new Vendedores { FechaIngreso = DateTime.Now };
+                Actual = new Vendedores();
             }
             catch (Exception ex)
             {

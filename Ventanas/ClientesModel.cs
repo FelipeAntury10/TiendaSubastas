@@ -8,46 +8,39 @@ namespace asp_presentacion.Pages.Ventanas
 {
     public class ClientesModel : PageModel
     {
-        private IClientesPresentacion? iPresentacion = null;
+        private readonly IClientesPresentacion iPresentacion;
 
         public ClientesModel(IClientesPresentacion iPresentacion)
         {
-            try
-            {
-                this.iPresentacion = iPresentacion;
-                Filtro = new Clientes();
-            }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
+            this.iPresentacion = iPresentacion;
+            Filtro = new Clientes();
         }
 
-        public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-
         [BindProperty] public Clientes? Actual { get; set; }
         [BindProperty] public Clientes? Filtro { get; set; }
         [BindProperty] public List<Clientes>? Lista { get; set; }
 
-        public virtual void OnGet() { OnPostBtRefrescar(); }
+        public void OnGet()
+        {
+            OnPostBtRefrescar();
+        }
 
         public void OnPostBtRefrescar()
         {
             try
             {
-                var variable_session = HttpContext.Session.GetString("Usuario");
-                if (String.IsNullOrEmpty(variable_session))
+                var session = HttpContext.Session.GetString("Usuario");
+                if (string.IsNullOrEmpty(session))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
                 }
 
-                Filtro!.Nombre = Filtro!.Nombre ?? "";
-                Filtro!.Correo = Filtro!.Correo ?? "";
-
+                Filtro!.Nombre = Filtro?.Nombre ?? "";
                 Accion = Enumerables.Ventanas.Listas;
-                var task = this.iPresentacion!.BuscarPorDocumento(Filtro!);
+
+                var task = iPresentacion.PorNombre(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -58,13 +51,12 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtNuevo()
+        public void OnPostBtNuevo()
         {
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Actual = new Clientes();
-                Actual.FechaRegistro = DateTime.Now;
+                Actual = new Clientes { FechaRegistro = DateTime.Now };
             }
             catch (Exception ex)
             {
@@ -72,7 +64,7 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtModificar(string data)
+        public void OnPostBtModificar(string data)
         {
             try
             {
@@ -86,17 +78,16 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtGuardar()
+        public void OnPostBtGuardar()
         {
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
 
-                Task<Clientes>? task = null;
-                if (Actual!.ID == 0)
-                    task = this.iPresentacion!.Guardar(Actual!)!;
-                else
-                    task = this.iPresentacion!.Modificar(Actual!)!;
+                Task<Clientes?> task = Actual!.ID == 0
+                    ? iPresentacion.Guardar(Actual!)
+                    : iPresentacion.Modificar(Actual!);
+
                 task.Wait();
                 Actual = task.Result;
                 Accion = Enumerables.Ventanas.Listas;
@@ -108,7 +99,7 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtBorrarVal(string data)
+        public void OnPostBtBorrarVal(string data)
         {
             try
             {
@@ -122,11 +113,12 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtBorrar()
+        public void OnPostBtBorrar()
         {
             try
             {
-                var task = this.iPresentacion!.Borrar(Actual!);
+                var task = iPresentacion.Borrar(Actual!);
+                task.Wait();
                 Actual = task.Result;
                 OnPostBtRefrescar();
             }

@@ -8,9 +8,9 @@
 
 <h2>Vendedores</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div>
-        <label>Filtro Nombre:</label>
+        <label>Nombre filtro:</label>
         <input asp-for="Filtro.Nombre" />
         <button asp-page-handler="BtRefrescar" type="submit">Buscar</button>
         <button asp-page-handler="BtNuevo" type="submit">Nuevo</button>
@@ -21,10 +21,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Id</th>
                     <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Email</th>
                     <th>Teléfono</th>
-                    <th>Correo</th>
+                    <th>Dirección</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -34,8 +36,10 @@
                     <tr>
                         <td>@item.ID</td>
                         <td>@item.Nombre</td>
-                        <td>@item.Telefono</td>
+                        <td>@item.Cedula</td>
                         <td>@item.Email</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Direccion</td>
                         <td>
                             <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
                             <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
@@ -52,12 +56,20 @@
             <input asp-for="Actual.Nombre" />
         </div>
         <div>
+            <label>Cédula:</label>
+            <input asp-for="Actual.Cedula" />
+        </div>
+        <div>
+            <label>Email:</label>
+            <input asp-for="Actual.Email" type="email" />
+        </div>
+        <div>
             <label>Teléfono:</label>
             <input asp-for="Actual.Telefono" />
         </div>
         <div>
-            <label>Correo:</label>
-            <input asp-for="Actual.Email" type="email" />
+            <label>Dirección:</label>
+            <input asp-for="Actual.Direccion" />
         </div>
         <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
         <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
@@ -65,7 +77,7 @@
     else if (Model.Accion == Enumerables.Ventanas.Borrar)
     {
         <div>
-            <p>¿Está seguro que desea borrar el vendedor: @Model.Actual?.Nombre ?</p>
+            <p>¿Está seguro que desea borrar al vendedor: @Model.Actual?.Nombre ?</p>
             <button asp-page-handler="BtBorrar" type="submit">Sí, borrar</button>
             <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
         </div>

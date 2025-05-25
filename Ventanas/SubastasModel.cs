@@ -3,10 +3,6 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -20,19 +16,12 @@ namespace asp_presentacion.Pages.Ventanas
             Filtro = new Subastas();
         }
 
-        [BindProperty]
-        public Enumerables.Ventanas Accion { get; set; }
+        [BindProperty] public Enumerables.Ventanas Accion { get; set; }
+        [BindProperty] public Subastas? Actual { get; set; }
+        [BindProperty] public Subastas? Filtro { get; set; }
+        [BindProperty] public List<Subastas>? Lista { get; set; }
 
-        [BindProperty]
-        public Subastas? Actual { get; set; }
-
-        [BindProperty]
-        public Subastas? Filtro { get; set; }
-
-        [BindProperty]
-        public List<Subastas>? Lista { get; set; }
-
-        public virtual void OnGet()
+        public void OnGet()
         {
             OnPostBtRefrescar();
         }
@@ -41,18 +30,15 @@ namespace asp_presentacion.Pages.Ventanas
         {
             try
             {
-                var variable_session = HttpContext.Session.GetString("Usuario");
-                if (string.IsNullOrEmpty(variable_session))
+                var session = HttpContext.Session.GetString("Usuario");
+                if (string.IsNullOrEmpty(session))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
                 }
 
-                Filtro!.Nombre = Filtro?.Nombre ?? "";
-
                 Accion = Enumerables.Ventanas.Listas;
-
-                Task<List<Subastas>> task = iPresentacion.BuscarPorNombre(Filtro!);
+                var task = iPresentacion.PorReferencia(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -68,7 +54,11 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
-                Actual = new Subastas { FechaInicio = DateTime.Now, FechaFin = DateTime.Now.AddDays(7) };
+                Actual = new Subastas
+                {
+                    FechaInicio = DateTime.Now,
+                    FechaFin = DateTime.Now.AddDays(1)
+                };
             }
             catch (Exception ex)
             {
@@ -130,6 +120,7 @@ namespace asp_presentacion.Pages.Ventanas
             try
             {
                 var task = iPresentacion.Borrar(Actual!);
+                task.Wait();
                 Actual = task.Result;
                 OnPostBtRefrescar();
             }

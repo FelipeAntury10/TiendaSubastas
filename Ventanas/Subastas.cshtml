@@ -8,10 +8,10 @@
 
 <h2>Subastas</h2>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div>
-        <label>Filtro Nombre Subasta:</label>
-        <input asp-for="Filtro.Nombre" />
+        <label>Producto filtro:</label>
+        <input asp-for="Filtro.ProductosID" />
         <button asp-page-handler="BtRefrescar" type="submit">Buscar</button>
         <button asp-page-handler="BtNuevo" type="submit">Nuevo</button>
     </div>
@@ -22,10 +22,12 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
-                    <th>EstadoID</th>
+                    <th>Categoría</th>
+                    <th>Producto</th>
+                    <th>Vendedor</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -34,10 +36,12 @@
                 {
                     <tr>
                         <td>@item.ID</td>
-                        <td>@item.Nombre</td>
                         <td>@item.FechaInicio.ToShortDateString()</td>
                         <td>@item.FechaFin.ToShortDateString()</td>
-                        <td>@item.EstadosID</td>
+                        <td>@item._Categoria?.Nombre</td>
+                        <td>@item._Producto?.Nombre</td>
+                        <td>@item._Vendedor?.Nombre</td>
+                        <td>@item._Estado?.Nombre</td>
                         <td>
                             <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
                             <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
@@ -50,10 +54,6 @@
     else if (Model.Accion == Enumerables.Ventanas.Editar)
     {
         <div>
-            <label>Nombre:</label>
-            <input asp-for="Actual.Nombre" />
-        </div>
-        <div>
             <label>Fecha Inicio:</label>
             <input asp-for="Actual.FechaInicio" type="date" />
         </div>
@@ -62,8 +62,20 @@
             <input asp-for="Actual.FechaFin" type="date" />
         </div>
         <div>
+            <label>Categoría ID:</label>
+            <input asp-for="Actual.CategoriasID" />
+        </div>
+        <div>
+            <label>Producto ID:</label>
+            <input asp-for="Actual.ProductosID" />
+        </div>
+        <div>
+            <label>Vendedor ID:</label>
+            <input asp-for="Actual.VendedoresID" />
+        </div>
+        <div>
             <label>Estado ID:</label>
-            <input asp-for="Actual.EstadosID" type="number" />
+            <input asp-for="Actual.EstadosID" />
         </div>
         <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
         <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
@@ -71,7 +83,7 @@
     else if (Model.Accion == Enumerables.Ventanas.Borrar)
     {
         <div>
-            <p>¿Está seguro que desea borrar la subasta: @Model.Actual?.Nombre ?</p>
+            <p>¿Está seguro que desea borrar la subasta con ID: @Model.Actual?.ID ?</p>
             <button asp-page-handler="BtBorrar" type="submit">Sí, borrar</button>
             <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
         </div>

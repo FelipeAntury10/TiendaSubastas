@@ -8,45 +8,39 @@ namespace asp_presentacion.Pages.Ventanas
 {
     public class MetodosPagosModel : PageModel
     {
-        private IMetodosPagosPresentacion? iPresentacion = null;
+        private readonly IMetodosPagosPresentacion iPresentacion;
 
         public MetodosPagosModel(IMetodosPagosPresentacion iPresentacion)
         {
-            try
-            {
-                this.iPresentacion = iPresentacion;
-                Filtro = new MetodosPagos();
-            }
-            catch (Exception ex)
-            {
-                LogConversor.Log(ex, ViewData!);
-            }
+            this.iPresentacion = iPresentacion;
+            Filtro = new MetodosPagos();
         }
 
-        public IFormFile? FormFile { get; set; }
         [BindProperty] public Enumerables.Ventanas Accion { get; set; }
-
         [BindProperty] public MetodosPagos? Actual { get; set; }
         [BindProperty] public MetodosPagos? Filtro { get; set; }
         [BindProperty] public List<MetodosPagos>? Lista { get; set; }
 
-        public virtual void OnGet() => OnPostBtRefrescar();
+        public void OnGet()
+        {
+            OnPostBtRefrescar();
+        }
 
         public void OnPostBtRefrescar()
         {
             try
             {
-                var variable_session = HttpContext.Session.GetString("Usuario");
-                if (string.IsNullOrEmpty(variable_session))
+                var session = HttpContext.Session.GetString("Usuario");
+                if (string.IsNullOrEmpty(session))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
                 }
 
-                Filtro!.Nombre = Filtro.Nombre ?? "";
+                Filtro!.Nombre = Filtro?.Nombre ?? "";
 
                 Accion = Enumerables.Ventanas.Listas;
-                var task = iPresentacion!.BuscarPorNombre(Filtro!);
+                var task = iPresentacion.BuscarPorNombre(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
@@ -57,7 +51,7 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtNuevo()
+        public void OnPostBtNuevo()
         {
             try
             {
@@ -70,7 +64,7 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtModificar(string data)
+        public void OnPostBtModificar(string data)
         {
             try
             {
@@ -84,19 +78,18 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtGuardar()
+        public void OnPostBtGuardar()
         {
             try
             {
                 Accion = Enumerables.Ventanas.Editar;
 
-                Task<MetodosPagos>? task = Actual!.ID == 0
-                    ? iPresentacion!.Guardar(Actual!)
-                    : iPresentacion!.Modificar(Actual!);
+                Task<MetodosPagos?> task = Actual!.ID == 0
+                    ? iPresentacion.Guardar(Actual!)
+                    : iPresentacion.Modificar(Actual!);
 
-                task!.Wait();
+                task.Wait();
                 Actual = task.Result;
-
                 Accion = Enumerables.Ventanas.Listas;
                 OnPostBtRefrescar();
             }
@@ -106,7 +99,7 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtBorrarVal(string data)
+        public void OnPostBtBorrarVal(string data)
         {
             try
             {
@@ -120,11 +113,11 @@ namespace asp_presentacion.Pages.Ventanas
             }
         }
 
-        public virtual void OnPostBtBorrar()
+        public void OnPostBtBorrar()
         {
             try
             {
-                var task = iPresentacion!.Borrar(Actual!);
+                var task = iPresentacion.Borrar(Actual!);
                 task.Wait();
                 Actual = task.Result;
                 OnPostBtRefrescar();

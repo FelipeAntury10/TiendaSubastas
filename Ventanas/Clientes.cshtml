@@ -10,7 +10,7 @@
 
 <form method="post">
     <div>
-        <label>Filtro Nombre:</label>
+        <label>Nombre filtro:</label>
         <input asp-for="Filtro.Nombre" />
         <button asp-page-handler="BtRefrescar" type="submit">Buscar</button>
         <button asp-page-handler="BtNuevo" type="submit">Nuevo</button>
@@ -23,8 +23,11 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Correo</th>
+                    <th>Cédula</th>
+                    <th>Email</th>
                     <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Fecha de Registro</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -34,8 +37,11 @@
                     <tr>
                         <td>@item.ID</td>
                         <td>@item.Nombre</td>
-                        <td>@item.Correo</td>
+                        <td>@item.Cedula</td>
+                        <td>@item.Email</td>
                         <td>@item.Telefono</td>
+                        <td>@item.Correo</td>
+                        <td>@item.FechaRegistro.ToShortDateString()</td>
                         <td>
                             <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
                             <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
@@ -47,18 +53,12 @@
     }
     else if (Model.Accion == Enumerables.Ventanas.Editar)
     {
-        <div>
-            <label>Nombre:</label>
-            <input asp-for="Actual.Nombre" />
-        </div>
-        <div>
-            <label>Correo:</label>
-            <input asp-for="Actual.Correo" type="email" />
-        </div>
-        <div>
-            <label>Teléfono:</label>
-            <input asp-for="Actual.Telefono" />
-        </div>
+        <div><label>Nombre:</label><input asp-for="Actual.Nombre" /></div>
+        <div><label>Cédula:</label><input asp-for="Actual.Cedula" /></div>
+        <div><label>Email:</label><input asp-for="Actual.Email" /></div>
+        <div><label>Teléfono:</label><input asp-for="Actual.Telefono" /></div>
+        <div><label>Correo:</label><input asp-for="Actual.Correo" /></div>
+        <div><label>Fecha de Registro:</label><input asp-for="Actual.FechaRegistro" type="date" /></div>
         <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
         <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
     }

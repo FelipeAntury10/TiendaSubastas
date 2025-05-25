@@ -23,9 +23,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th>Valor</th>
-                    <th>Fecha Ingreso</th>
+                    <th>Descripción</th>
+                    <th>Precio Inicial</th>
+                    <th>Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -35,9 +35,9 @@
                     <tr>
                         <td>@item.ID</td>
                         <td>@item.Nombre</td>
-                        <td>@item.Cantidad</td>
-                        <td>@item.Valor.ToString("C")</td>
-                        <td>@item.FechaIngreso.ToShortDateString()</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.PrecioInicial?.ToString("C")</td>
+                        <td>@item._Categoria?.Nombre</td>
                         <td>
                             <button asp-page-handler="BtModificar" asp-route-data="@item.ID" type="submit">Modificar</button>
                             <button asp-page-handler="BtBorrarVal" asp-route-data="@item.ID" type="submit">Borrar</button>
@@ -54,16 +54,16 @@
             <input asp-for="Actual.Nombre" />
         </div>
         <div>
-            <label>Cantidad:</label>
-            <input asp-for="Actual.Cantidad" type="number" />
+            <label>Descripción:</label>
+            <input asp-for="Actual.Descripcion" />
         </div>
         <div>
-            <label>Valor:</label>
-            <input asp-for="Actual.Valor" type="number" step="0.01" />
+            <label>Precio Inicial:</label>
+            <input asp-for="Actual.PrecioInicial" type="number" step="0.01" />
         </div>
         <div>
-            <label>Fecha Ingreso:</label>
-            <input asp-for="Actual.FechaIngreso" type="date" />
+            <label>Categoría ID:</label>
+            <input asp-for="Actual.CategoriasID" />
         </div>
         <button asp-page-handler="BtGuardar" type="submit">Guardar</button>
         <button asp-page-handler="BtCancelar" type="submit">Cancelar</button>
