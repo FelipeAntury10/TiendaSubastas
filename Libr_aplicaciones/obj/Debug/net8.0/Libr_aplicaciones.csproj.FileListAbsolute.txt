@@ -1,0 +1,36 @@
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\bin\Debug\net8.0\Libr_aplicaciones.deps.json
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\bin\Debug\net8.0\Libr_aplicaciones.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\bin\Debug\net8.0\Libr_aplicaciones.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\bin\Debug\net8.0\lib_dominio.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\bin\Debug\net8.0\lib_repositorio.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\bin\Debug\net8.0\lib_dominio.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\bin\Debug\net8.0\lib_repositorio.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.csproj.AssemblyReference.cache
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.AssemblyInfoInputs.cache
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.AssemblyInfo.cs
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.csproj.CoreCompileInputs.cache
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.sourcelink.json
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_apl.A0CF0F42.Up2Date
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\refint\Libr_aplicaciones.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master\EntregaFinal-master\Libr_aplicaciones\obj\Debug\net8.0\ref\Libr_aplicaciones.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\bin\Debug\net8.0\Libr_aplicaciones.deps.json
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\bin\Debug\net8.0\Libr_aplicaciones.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\bin\Debug\net8.0\Libr_aplicaciones.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\bin\Debug\net8.0\lib_dominio.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\bin\Debug\net8.0\lib_repositorio.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\bin\Debug\net8.0\lib_dominio.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\bin\Debug\net8.0\lib_repositorio.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.csproj.AssemblyReference.cache
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.AssemblyInfoInputs.cache
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.AssemblyInfo.cs
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.csproj.CoreCompileInputs.cache
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.sourcelink.json
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_apl.A0CF0F42.Up2Date
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\refint\Libr_aplicaciones.dll
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\Libr_aplicaciones.pdb
+C:\Users\felip\OneDrive\Escritorio\EntregaFinal-master 2\Libr_aplicaciones\obj\Debug\net8.0\ref\Libr_aplicaciones.dll
