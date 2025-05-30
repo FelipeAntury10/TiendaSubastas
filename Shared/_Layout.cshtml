@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Tienda Subastas</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/asp_presentacion.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        header {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color)) !important;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Arial Rounded MT Bold', sans-serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+            .navbar-brand:hover {
+                transform: scale(1.05);
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-item {
+            margin: 0 0.2rem;
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--light-color) !important;
+            font-weight: 500;
+            padding: 0.8rem 1rem !important;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+            .nav-link i {
+                margin-right: 8px;
+                font-size: 1.1rem;
+            }
+
+            .nav-link:hover {
+                background: rgba(255, 255, 255, 0.15);
+                transform: translateY(-2px);
+                color: white !important;
+            }
+
+            .nav-link.active {
+                background: var(--secondary-color);
+                font-weight: bold;
+                box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: 0;
+                height: 3px;
+                background: var(--accent-color);
+                transition: all 0.3s ease;
+                transform: translateX(-50%);
+            }
+
+            .nav-link:hover::after {
+                width: 70%;
+            }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: white !important;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+            footer a {
+                color: var(--accent-color) !important;
+            }
+
+        @@media (max-width: 992px) {
+            .navbar-collapse {
+
+        {
+            background: var(--primary-color);
+            padding: 1rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            margin: 0.3rem 0;
+        }
+
+        .nav-link {
+            padding: 0.8rem !important;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index"
+                   style="display: inline-flex; align-items: center; white-space: nowrap;">
+                    <i class="fas fa-gavel me-2"></i>Tienda Subastas
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Index">
+                                <i class="fas fa-home"></i>Inicio
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Categorias">
+                                <i class="fas fa-tags"></i>Categorías
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Clientes">
+                                <i class="fas fa-users"></i>Clientes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Estados">
+                                <i class="fas fa-info-circle"></i>Estados
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/MetodosPagos">
+                                <i class="fas fa-credit-card"></i>Métodos de Pago
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Pagos">
+                                <i class="fas fa-money-bill-wave"></i>Pagos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Productos">
+                                <i class="fas fa-box-open"></i>Productos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Pujas">
+                                <i class="fas fa-hand-holding-usd"></i>Pujas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Subastas">
+                                <i class="fas fa-gavel"></i>Subastas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Ventanas/Vendedores">
+                                <i class="fas fa-user-tie"></i>Vendedores
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            &copy; 2025 - TiendaSubastas - <a asp-area="" asp-page="/Privacy">Privacidad</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
