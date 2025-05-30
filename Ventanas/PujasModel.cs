@@ -3,6 +3,7 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -20,6 +21,8 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public Pujas? Actual { get; set; }
         [BindProperty] public Pujas? Filtro { get; set; }
         [BindProperty] public List<Pujas>? Lista { get; set; }
+        public SelectList? ClientesList { get; set; }
+        public SelectList? SubastasList { get; set; }
 
         public void OnGet()
         {
@@ -38,7 +41,7 @@ namespace asp_presentacion.Pages.Ventanas
                 }
 
                 Accion = Enumerables.Ventanas.Listas;
-                var task = iPresentacion.PorReferencia(Filtro!);
+                var task = iPresentacion.BuscarPorReferencia(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;

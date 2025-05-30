@@ -40,7 +40,7 @@ namespace asp_presentacion.Pages.Ventanas
                 Filtro!.Nombre = Filtro?.Nombre ?? "";
 
                 Accion = Enumerables.Ventanas.Listas;
-                var task = iPresentacion.PorNombre(Filtro!);
+                var task = iPresentacion.BuscarPorNombre(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;

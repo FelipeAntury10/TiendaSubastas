@@ -3,6 +3,7 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -20,6 +21,7 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public Productos? Actual { get; set; }
         [BindProperty] public Productos? Filtro { get; set; }
         [BindProperty] public List<Productos>? Lista { get; set; }
+        public SelectList? CategoriasList { get; set; }
 
         public void OnGet()
         {

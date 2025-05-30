@@ -3,6 +3,7 @@ using lib_dominio.Nucleo;
 using lib_presentaciones.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace asp_presentacion.Pages.Ventanas
 {
@@ -21,6 +22,11 @@ namespace asp_presentacion.Pages.Ventanas
         [BindProperty] public Subastas? Filtro { get; set; }
         [BindProperty] public List<Subastas>? Lista { get; set; }
 
+        public SelectList? ProductosList { get; set; }
+        public SelectList? VendedoresList { get; set; }
+        public SelectList? CategoriasList { get; set; }
+        public SelectList? EstadosList { get; set; }
+
         public void OnGet()
         {
             OnPostBtRefrescar();
@@ -38,7 +44,7 @@ namespace asp_presentacion.Pages.Ventanas
                 }
 
                 Accion = Enumerables.Ventanas.Listas;
-                var task = iPresentacion.PorReferencia(Filtro!);
+                var task = iPresentacion.BuscarPorReferencia(Filtro!);
                 task.Wait();
                 Lista = task.Result;
                 Actual = null;
